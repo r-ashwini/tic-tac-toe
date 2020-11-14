@@ -1,0 +1,11 @@
+.container {
+    display: flex;
+    background: #fff;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+    max-width: 500px;
+    max-height: 500px;
+    /* border-radius: 5%; */
+    margin: auto;
+  }

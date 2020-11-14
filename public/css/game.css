@@ -4,16 +4,22 @@
     margin: 0;
   }
   
+
   .container {
     display: flex;
     background: #fff;
     align-content: center;
     justify-content: center;
     flex-direction: column;
-    min-width: 500px;
-    min-height: 500px;
+    max-width: 500px;
+    max-height: 800px;
     /* border-radius: 5%; */
     margin: auto;
+  }
+
+  .banner {
+    top: 50px;
+    height: 50px;
   }
   
   table {
@@ -22,12 +28,13 @@
   }
   
   td {
-    background-color: rgb(74, 72, 196);
+    background-color: rgb(153, 153, 153);
     border: 5px solid white;
     font-size: 80px;
     color: #fff;
     border-radius: 20%;
     font-family: "Comic Sans MS", cursive, sans-serif;
+    text-align: center;
   }
   
   #player {
