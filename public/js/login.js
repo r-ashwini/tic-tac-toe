@@ -11,7 +11,7 @@ const auth = firebase.auth();
 
 
 firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
+    if (user && user.displayName) {
          window.location.href = "menu.html";
     } else {
           // No user is signed in.
@@ -46,7 +46,6 @@ function signup() {
     .catch(function(error) {
         var errorCode = error.code;
         var errorMessage = error.message;
-        window.alert(errorMessage);
         showErrorMessage("signup_error", errorMessage);
     })
 
@@ -59,7 +58,7 @@ function signInCallback(authUser) {
 function signupCallback(authUser) {
     const currentUser = firebase.auth().currentUser;
     const rawDisplayName = document.getElementById('new_user_display_name').value;
-    let displayName = rawDisplayName? rawDisplayName : currentUser.email;
+    let displayName = rawDisplayName==null? rawDisplayName : currentUser.email;
     currentUser.updateProfile({
         displayName: displayName
     }).then(function() {
