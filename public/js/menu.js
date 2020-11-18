@@ -4,6 +4,7 @@ function init() {
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
             document.getElementById('logout').style.display = "block";
+            document.getElementById('gethistory').style.display = "block";
         } else {
               // No user is signed in.
         }
@@ -26,4 +27,8 @@ function logout() {
       }).catch(function(error) {
         // An error happened.
       });
+}
+
+function history() {
+    window.location.href = "history.html";
 }

@@ -1,15 +1,6 @@
 const database = firebase.database();
 const auth = firebase.auth();
 
-// addBtn.addEventListener('click', (e) => {
-//     e.preventDefault();
-//     database.ref('/users/' + userId.value).set({
-//         first_name: firstName.value,
-//         last_name: lastName.value
-//     })  
-// })
-
-
 firebase.auth().onAuthStateChanged(function(user) {
     if (user && user.displayName) {
          window.location.href = "menu.html";

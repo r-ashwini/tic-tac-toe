@@ -1,8 +1,8 @@
-* {
+/* * {
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-  }
+  } */
   
 
   .container {
@@ -12,14 +12,9 @@
     justify-content: center;
     flex-direction: column;
     max-width: 500px;
-    max-height: 800px;
+    max-height: 500px;
     /* border-radius: 5%; */
     margin: auto;
-  }
-
-  .banner {
-    top: 50px;
-    height: 50px;
   }
   
   table {
@@ -41,12 +36,10 @@
     padding: 1rem;
   }
   
-  body {
+  /* body {
     display: flex;
-    /* background: #eee url('https://source.unsplash.com/1600x900/?nature') no-repeat */
-    background: #eee
-      center center/cover;
+    background: #eee url('https://source.unsplash.com/1600x900/?nature') no-repeat;
     height: 100vh;
     width: 100%;
     overflow: hidden;
-  }
+  } */
