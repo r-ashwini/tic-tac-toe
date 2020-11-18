@@ -1,3 +1,5 @@
+
+
 /**
  * Tic Tac Toe
  *
@@ -17,7 +19,26 @@ var N_SIZE = 3,
 /**
  * Initializes the Tic Tac Toe board and starts the game.
  */
+
 function init() {
+  displayCurrentUserName();
+  createGame();
+}
+
+function displayCurrentUserName () {
+  /* Get user display name for banner */
+  firebase.auth().onAuthStateChanged(function(user) {
+    let currentUserDisplayName = "Guest";
+    currentUserDisplayName = user? 
+        user.displayName : currentUserDisplayName;
+    const item = document.getElementById("showDisplayName");
+    const text = document.createTextNode(currentUserDisplayName);
+    item.appendChild(text); 
+  });
+}
+
+
+function createGame() {
   var board = document.createElement('table');
   board.setAttribute('border', 1);
   board.setAttribute('cellspacing', 0);

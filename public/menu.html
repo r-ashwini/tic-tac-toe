@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>TIC-TAC-TOE - Skywalker</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" type="text/css" href="css/menu.css" />
+</head>
+<body>
+    <div class="banner" id="showDisplayName"> Hi,  </div>
+    <div class="container">
+        <h1> Welcome </h1>
+        <button id="startgame" type="button" onclick="play()">
+            </span>Play
+        </button>
+        <button id="logout" type="button" style="display: none" onclick="logout()">
+            </span>Logout
+        </button>
+    </div>
+
+
+    <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-auth.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+          apiKey: "AIzaSyDRNXzMBhNzGs64CM4yuoTEFXR4N4oU7pU",
+          authDomain: "css566-tic-tac-toe-2020fall.firebaseapp.com",
+          databaseURL: "https://css566-tic-tac-toe-2020fall.firebaseio.com",
+          projectId: "css566-tic-tac-toe-2020fall",
+          storageBucket: "css566-tic-tac-toe-2020fall.appspot.com",
+          messagingSenderId: "983695071129",
+          appId: "1:983695071129:web:eb0edfa53f287ce47d2508"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+  <script src="js/menu.js"></script>
+</body>
+</html>  
