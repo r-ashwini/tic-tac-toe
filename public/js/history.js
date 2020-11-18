@@ -30,7 +30,7 @@ function init() {
                         data: data
                     },
                     locator: "data",
-                    pageSize: 1,
+                    pageSize: 20,
                     callback: function(data, pagination) {
                         var html = template(data);
                         $('#game-history-data').html(html);
