@@ -1,5 +1,3 @@
-
-
 /**
  * Tic Tac Toe
  *
@@ -37,6 +35,23 @@ function displayCurrentUserName () {
   });
 }
 
+function saveGameHistory(winner) {
+  const currentUser = firebase.auth().currentUser;
+  if(currentUser === null) return;
+  const newGameId = uuidv4();
+  const data = Date.now(); //raw timestamp
+  firebase.database().ref('/games/' + newGameId).set({
+    userId: currentUser.uid,
+    gameType: "Regular", //play against self
+    winner: winner,
+    timestamp: data,
+    status: "win" //user always win for this mode
+  });
+}
+
+function home() {
+  window.location.href = "menu.html";
+}
 
 function createGame() {
   var board = document.createElement('table');
@@ -126,6 +141,8 @@ function set() {
   score[turn] += this.identifier;
   if (win(this)) {
     //alert('Winner: Player ' + turn);
+    saveGameHistory(turn); //save record
+
     document.getElementById('turn').textContent = 'Winner: Player ' + turn;
     document.getElementById('startNewGame').disabled = false;
     document.getElementById("startNewGame").onclick = function() {onStartNewGameClicked()};
