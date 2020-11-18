@@ -6,6 +6,7 @@
     flex-direction: column;
     max-width: 500px;
     max-height: 500px;
+    background-image: url('images/bgnew.jpg');
     /* border-radius: 5%; */
     margin: auto;
   }
