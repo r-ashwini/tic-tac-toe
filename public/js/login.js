@@ -49,7 +49,7 @@ function signInCallback(authUser) {
 function signupCallback(authUser) {
     const currentUser = firebase.auth().currentUser;
     const rawDisplayName = document.getElementById('new_user_display_name').value;
-    let displayName = rawDisplayName==null? rawDisplayName : currentUser.email;
+    let displayName = rawDisplayName? rawDisplayName : currentUser.email;
     currentUser.updateProfile({
         displayName: displayName
     }).then(function() {

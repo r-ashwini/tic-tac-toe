@@ -9,3 +9,8 @@
     /* border-radius: 5%; */
     margin: auto;
   }
+
+  
+  li {
+    float: left;
+  }

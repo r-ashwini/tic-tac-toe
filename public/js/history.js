@@ -34,9 +34,13 @@ function init() {
                     callback: function(data, pagination) {
                         var html = template(data);
                         $('#game-history-data').html(html);
+                        if(data.length === 0) {
+                            document.getElementById("game-history-empty").style.display = "block";
+                            document.getElementById("game-history-pagination").style.display = "none";
+                        }
                     }
-                    })
-                });
+                })
+            });
         } else {
             // No user is signed in.
             

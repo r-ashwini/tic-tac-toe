@@ -3,6 +3,7 @@ init();
 function init() {
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
+            document.getElementById('login').style.display = "none";
             document.getElementById('logout').style.display = "block";
             document.getElementById('gethistory').style.display = "block";
         } else {
@@ -19,6 +20,10 @@ function init() {
 
 function play() {
     window.location.href = "game.html";
+}
+
+function login() {
+    window.location.href = "login.html";
 }
 
 function logout() {
