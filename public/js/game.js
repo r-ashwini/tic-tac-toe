@@ -14,6 +14,7 @@ var N_SIZE = 3,
   score,
   moves;
 
+let isOver = false;
 /**
  * Initializes the Tic Tac Toe board and starts the game.
  */
@@ -133,7 +134,7 @@ function contains(selector, text) {
  * Sets clicked square and also updates the turn.
  */
 function set() {
-  if (this.innerHTML !== EMPTY) {
+  if (this.innerHTML !== EMPTY || isOver) {
     return;
   }
   this.innerHTML = turn;
@@ -141,6 +142,7 @@ function set() {
   score[turn] += this.identifier;
   if (win(this)) {
     //alert('Winner: Player ' + turn);
+    isOver = true;
     saveGameHistory(turn); //save record
 
     document.getElementById('turn').textContent = 'Winner: Player ' + turn;
@@ -149,6 +151,7 @@ function set() {
     //startNewGame();
   } else if (moves === N_SIZE * N_SIZE) {
     //alert('Draw');
+    isOver = true;
     document.getElementById('turn').textContent = 'Draw';
     document.getElementById('startNewGame').disabled = false;
     document.getElementById("startNewGame").onclick = function() {onStartNewGameClicked()};
@@ -160,6 +163,7 @@ function set() {
 }
 
 function onStartNewGameClicked() {
+  isOver = false;
   startNewGame();
   document.getElementById('startNewGame').disabled = true;
   document.getElementById('turn').textContent = 'Player ' + turn;
