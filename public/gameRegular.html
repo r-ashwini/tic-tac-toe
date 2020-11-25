@@ -7,32 +7,23 @@
   <title>TIC-TAC-TOE - Skywalker</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link rel="stylesheet" href="./style.css">
-  <link rel="stylesheet" type="text/css" href="css/menu.css" />
+  <link rel="stylesheet" type="text/css" href="css/game.css" />
 </head>
 <body>
     <div class="banner" id="showDisplayName"> Hi,  </div>
+    <button type="button" title="Main Menu" onclick="home()">
+      </span>&#11088
+    </button>
     <div class="container">
-        <h1> Welcome </h1>
-        <button id="startgame_regular" type="button" onclick="playRegular()">
-            </span>Play (vs self)
-        </button>
-        <button id="startgame_easy_ai" type="button" onclick="playEasyAI()">
-            </span>Easy AI
-        </button>
-        <button id="login" type="button" onclick="login()">
-            </span>Login
-        </button>
-        <button id="gethistory" type="button" style="display: none" onclick="history()">
-            </span>History
-        </button>
-        <button id="getranking" type="button" style="display: none" onclick="ranking()">
-            </span>Ranking
-        </button>
-        <button id="logout" type="button" style="display: none" onclick="logout()">
-            </span>Logout
-        </button>
+      <div id="tictactoe"></div>
+      <div id="player" align="center">
+        <span id="turn" align="">Player X</span>
+        <br>
+        <br>
+        <button id="startNewGame" type="button" disabled>Start A New Game</button>
+      </div>
     </div>
-
+    
 
     <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-database.js"></script>
@@ -51,6 +42,7 @@
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
     </script>
-  <script src="js/menu.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.1.0/uuidv4.min.js"></script>
+  <script src="js/gameRegular.js"></script>
 </body>
 </html>  

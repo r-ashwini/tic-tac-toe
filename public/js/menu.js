@@ -6,6 +6,7 @@ function init() {
             document.getElementById('login').style.display = "none";
             document.getElementById('logout').style.display = "block";
             document.getElementById('gethistory').style.display = "block";
+            document.getElementById('getranking').style.display = "block";
         } else {
               // No user is signed in.
         }
@@ -18,8 +19,12 @@ function init() {
     });
 }
 
-function play() {
+function playEasyAI() {
     window.location.href = "game.html";
+}
+
+function playRegular() {
+    window.location.href = "gameRegular.html";
 }
 
 function login() {
@@ -36,4 +41,8 @@ function logout() {
 
 function history() {
     window.location.href = "history.html";
+}
+
+function ranking() {
+    window.location.href = "ranking.html";
 }

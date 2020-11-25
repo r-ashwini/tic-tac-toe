@@ -7,30 +7,34 @@
   <title>TIC-TAC-TOE - Skywalker</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link rel="stylesheet" href="./style.css">
-  <link rel="stylesheet" type="text/css" href="css/menu.css" />
+  <link rel="stylesheet" type="text/css" href="css/ranking.css" />
 </head>
 <body>
     <div class="banner" id="showDisplayName"> Hi,  </div>
+    <button type="button" title="Main Menu" onclick="home()">
+      </span>&#11088
+    </button>
     <div class="container">
-        <h1> Welcome </h1>
-        <button id="startgame_regular" type="button" onclick="playRegular()">
-            </span>Play (vs self)
-        </button>
-        <button id="startgame_easy_ai" type="button" onclick="playEasyAI()">
-            </span>Easy AI
-        </button>
-        <button id="login" type="button" onclick="login()">
-            </span>Login
-        </button>
-        <button id="gethistory" type="button" style="display: none" onclick="history()">
-            </span>History
-        </button>
-        <button id="getranking" type="button" style="display: none" onclick="ranking()">
-            </span>Ranking
-        </button>
-        <button id="logout" type="button" style="display: none" onclick="logout()">
-            </span>Logout
-        </button>
+      <div>
+        <h3> Ranking - AI (Easy) </h3>
+        <div id="game-easy-ranking-data"></div>
+        <div id="game-easy-ranking-empty" style="display: none; text-align: center;">No data found.</div>
+        <div id="game-easy-ranking-pagination"></div>
+      </div>
+        <br>
+      <div>
+        <h3> Ranking - AI (Advanced) </h3>
+        <div id="game-adv-ranking-data"></div>
+        <div id="game-adv-ranking-empty" style="display: none; text-align: center;">No data found.</div>
+        <div id="game-adv-ranking-pagination"></div>
+      </div>
+        <br>
+      <div>
+        <h3> Ranking - AI (Overall) </h3>
+        <div id="game-overall-ranking-data"></div>
+        <div id="game-overall-ranking-empty" style="display: none; text-align: center;">No data found.</div>
+        <div id="game-overall-ranking-pagination"></div>
+      </div>
     </div>
 
 
@@ -51,6 +55,9 @@
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
     </script>
-  <script src="js/menu.js"></script>
+    <script src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://pagination.js.org/dist/2.1.5/pagination.min.js"></script>
+    <script src="js/ranking.js"></script>
 </body>
 </html>  
