@@ -10,3 +10,16 @@
     /* border-radius: 5%; */
     margin: auto;
   }
+
+  #signinButton {
+    background-color: white;
+    color: #50C878;
+    border: 2px solid #e7e7e7;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: 500;
+  }
+  
+  #signinButton:hover {background-color: #e7e7e7;}

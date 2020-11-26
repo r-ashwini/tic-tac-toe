@@ -3,7 +3,10 @@
 <head>
   <style type="text/css">
     body {
-      background-image:url("images/bgnew.jpg");
+      background-image:url("images/index.png");
+    }
+    button {
+      border-radius: 10px
     }
   </style>
   <meta charset="UTF-8">
@@ -16,14 +19,15 @@
 </head>
 <body>
   <main>
-    <div class="container" id="login" style="display: block">
-        <h1> Login </h1>
+    <div class="container" id="login" style="display: block; background: transparent; padding-top: 150px">
+        <img src="images/logo.png" alt="logo">
+        <h5> Login </h5>
         <h8 class="error" id="login_error" style="color:red"></h8><br>
-        <label for="email">Email</label><br>
+        <label for="email" style="color: white;">Email</label><br>
         <input type="text" name="email" id="user_email"><br>
-        <label for="password">Password</label><br>
+        <label for="password" style="color: white;">Password</label><br>
         <input type="password" name="password" id="user_password"><br>
-        <button id="signinButton" type="button" onclick="login()">
+        <button id="signinButton" type="button"  onclick="login()">
             </span>Login
         </button>
         <button id="signinButton" type="button" onclick="toSignup()">
@@ -33,14 +37,15 @@
           </span>Play as a guest &#128151;
         </button>
     </div>
-    <div class="container" id="signup" style="display: none">
-      <h1> Signup </h1>
+    <div class="container" id="signup" style="display: none; background: transparent; padding-top: 150px">
+      <img src="images/logo.png" alt="logo">
+      <h5> Signup </h5>
       <h8 class="error" id="signup_error" style="color:red"></h8><br>
-      <label for="email">Email</label><br>
+      <label for="email" style="color: white;">Email</label><br>
       <input type="text" name="email" id="new_user_email"><br>
-      <label for="password">Password</label><br>
+      <label for="password" style="color: white;">Password</label><br>
       <input type="password" name="password" id="new_user_password"><br>
-      <label for="displayname">Display Name</label><br>
+      <label for="displayname" style="color: white;">Display Name</label><br>
       <input type="text" name="displayname" id="new_user_display_name"><br>
       <button id="signupButton" type="button" onclick="signup()">
           </span>Join Now

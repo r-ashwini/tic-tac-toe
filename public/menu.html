@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style type="text/css">
+        body {
+          background-image:url("images/index.png");
+        }
+        /* button {
+            border-radius: 10px;
+        } */
+    </style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -10,24 +18,29 @@
   <link rel="stylesheet" type="text/css" href="css/menu.css" />
 </head>
 <body>
-    <div class="banner" id="showDisplayName"> Hi,  </div>
-    <div class="container">
-        <h1> Welcome </h1>
+    <div class="banner" id="showDisplayName" style="color: white; font-weight: 500;"> Hi,  </div>
+    <div class="container" style="background:transparent">
+        <h1 style="color:white; font-family: 'Comic Sans MS', cursive, sans-serif; font-weight: 900;"> WELCOME </h1>
         <button id="startgame_regular" type="button" onclick="playRegular()">
             </span>Play (vs self)
         </button>
+        <br>
         <button id="startgame_easy_ai" type="button" onclick="playEasyAI()">
             </span>Easy AI
         </button>
+        <br>
         <button id="login" type="button" onclick="login()">
             </span>Login
         </button>
+        <br>
         <button id="gethistory" type="button" style="display: none" onclick="history()">
             </span>History
         </button>
+        <br>
         <button id="getranking" type="button" style="display: none" onclick="ranking()">
             </span>Ranking
         </button>
+        <br>
         <button id="logout" type="button" style="display: none" onclick="logout()">
             </span>Logout
         </button>

@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <style type="text/css">
+    body {
+      background-image:url("images/index.png");
+    }
+    button {
+      border-radius: 10px
+    }
+  </style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -10,27 +18,27 @@
   <link rel="stylesheet" type="text/css" href="css/ranking.css" />
 </head>
 <body>
-    <div class="banner" id="showDisplayName"> Hi,  </div>
+    <div class="banner" id="showDisplayName" style="color: white; font-weight: 500;"> Hi,  </div>
     <button type="button" title="Main Menu" onclick="home()">
       </span>&#11088
     </button>
     <div class="container">
       <div>
-        <h3> Ranking - AI (Easy) </h3>
+        <h3 style="font-family: 'Comic Sans MS', cursive, sans-serif; font-weight: 900;"> Ranking - AI (Easy) </h3>
         <div id="game-easy-ranking-data"></div>
         <div id="game-easy-ranking-empty" style="display: none; text-align: center;">No data found.</div>
         <div id="game-easy-ranking-pagination"></div>
       </div>
         <br>
       <div>
-        <h3> Ranking - AI (Advanced) </h3>
+        <h3 style="font-family: 'Comic Sans MS', cursive, sans-serif; font-weight: 900;"> Ranking - AI (Advanced) </h3>
         <div id="game-adv-ranking-data"></div>
         <div id="game-adv-ranking-empty" style="display: none; text-align: center;">No data found.</div>
         <div id="game-adv-ranking-pagination"></div>
       </div>
         <br>
       <div>
-        <h3> Ranking - AI (Overall) </h3>
+        <h3 style="font-family: 'Comic Sans MS', cursive, sans-serif; font-weight: 900;"> Ranking - AI (Overall) </h3>
         <div id="game-overall-ranking-data"></div>
         <div id="game-overall-ranking-empty" style="display: none; text-align: center;">No data found.</div>
         <div id="game-overall-ranking-pagination"></div>
