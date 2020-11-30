@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <style type="text/css">
+    body {
+      background-image:url("images/index.png");
+    }
+    button {
+      border-radius: 10px
+    }
+  </style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -10,11 +18,12 @@
   <link rel="stylesheet" type="text/css" href="css/history.css" />
 </head>
 <body>
-    <div class="banner" id="showDisplayName"> Hi,  </div>
+    <div class="banner" id="showDisplayName"  style="color: white; font-weight: 500;"> Hi,  </div>
     <button type="button" title="Main Menu" onclick="home()">
       </span>&#11088
     </button>
-    <div class="container">
+    <h3 style="text-align: center; font-family: 'Comic Sans MS', cursive, sans-serif; font-weight: 900;"> HISTORY </h3>
+    <div class="container" style="background: transparent;">
         <div id="game-history-data"></div>
         <div id="game-history-empty" style="display: none; text-align: center;">No data found.</div>
         <div id="game-history-pagination"></div>

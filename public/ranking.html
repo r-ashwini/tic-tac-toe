@@ -6,7 +6,7 @@
       background-image:url("images/index.png");
     }
     button {
-        border-radius: 10px;
+      border-radius: 10px
     }
   </style>
   <meta charset="UTF-8">
@@ -15,28 +15,36 @@
   <title>TIC-TAC-TOE - Skywalker</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link rel="stylesheet" href="./style.css">
-  <link rel="stylesheet" type="text/css" href="css/game.css" />
+  <link rel="stylesheet" type="text/css" href="css/ranking.css" />
 </head>
 <body>
-    <div class="banner" id="showDisplayName"> Hi,  </div>
+    <div class="banner" id="showDisplayName" style="color: white; font-weight: 500;"> Hi,  </div>
     <button type="button" title="Main Menu" onclick="home()">
       </span>&#11088
     </button>
     <div class="container">
-      <div id="tictactoe" align="center">
+      <div>
+        <h3 style="font-family: 'Comic Sans MS', cursive, sans-serif; font-weight: 900;"> Ranking - AI (Easy) </h3>
+        <div id="game-easy-ranking-data"></div>
+        <div id="game-easy-ranking-empty" style="display: none; text-align: center;">No data found.</div>
+        <div id="game-easy-ranking-pagination"></div>
       </div>
-      <div id="player" align="center">
-        <span id="turn" align="">Player X</span>
         <br>
+      <div>
+        <h3 style="font-family: 'Comic Sans MS', cursive, sans-serif; font-weight: 900;"> Ranking - AI (Advanced) </h3>
+        <div id="game-adv-ranking-data"></div>
+        <div id="game-adv-ranking-empty" style="display: none; text-align: center;">No data found.</div>
+        <div id="game-adv-ranking-pagination"></div>
+      </div>
         <br>
-        <button id="startNewGame" type="button">Start a New Game</button>
-        <br>
-        <br>
-        <label for="progressBar">Turn Timer:</label>
-        <progress id="progressBar" value="100" max="100"></progress>
+      <div>
+        <h3 style="font-family: 'Comic Sans MS', cursive, sans-serif; font-weight: 900;"> Ranking - AI (Overall) </h3>
+        <div id="game-overall-ranking-data"></div>
+        <div id="game-overall-ranking-empty" style="display: none; text-align: center;">No data found.</div>
+        <div id="game-overall-ranking-pagination"></div>
       </div>
     </div>
-    
+
 
     <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-database.js"></script>
@@ -55,7 +63,9 @@
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
     </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.1.0/uuidv4.min.js"></script>
-  <script src="js/game.js"></script>
+    <script src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://pagination.js.org/dist/2.1.5/pagination.min.js"></script>
+    <script src="js/ranking.js"></script>
 </body>
 </html>  

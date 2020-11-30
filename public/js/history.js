@@ -17,11 +17,22 @@ function init() {
                     const item = snapshot.val()[key];
                     const timestamp = item.timestamp;
                     const humanReadableTime = convertTimeToHumanReadable(timestamp);
+                    let status = item["status"];
+                    if(item["gameType"] !== 'Regular') {
+                        if(status === 1) {
+                            status = "Player Won"; // Player won
+                          } else if(status === -1) {
+                            status = "AI Won"; //AI won
+                          } else {
+                            status = "Draw"; //Draw
+                          }
+                    }
                     let newItem = {
                         date: humanReadableTime,
                         gameType: item["gameType"],
                         winner: item["winner"],
-                        status: item["status"]
+                        status: status,
+                        timestamp: item["timestamp"]
                     };
                     data = [newItem, ...data];
                 }
@@ -30,7 +41,7 @@ function init() {
                         data: data
                     },
                     locator: "data",
-                    pageSize: 20,
+                    pageSize: 30,
                     callback: function(data, pagination) {
                         var html = template(data);
                         $('#game-history-data').html(html);
@@ -49,6 +60,9 @@ function init() {
 }
 
 function template(dataSet) {
+    dataSet.sort(function(a,b){
+        return new Date(b.timestamp) - new Date(a.timestamp);
+    });
     let divItem = "";
     const header = {
         date: "Date",
