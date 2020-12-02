@@ -7,17 +7,20 @@
  *
  * @author: Neil Cai, Purrnima Dayanandam, Liwen Fan, Monali Khobragade, Ashwini Rudrawar, Will Thomas, Kevin Wang
  */
+
+var symbols = ["👍", "❤️"];
 var N_SIZE = 3,
   EMPTY = '&nbsp;',
   boxes = [],
   availableBoxes = [],
   currentGameMoves = [],
   gameType,
-  turn = 'X',
+  turn = symbols[0],
   score,
   turnTimer,
   moves,
   isOver;
+
 
 /**
  * Initializes the Tic Tac Toe board and starts the game.
@@ -40,9 +43,9 @@ function saveGameHistory(winner) {
   const newGameId = uuidv4();
   const data = Date.now(); //raw timestamp
   let status = 0;
-  if(winner === 'X') {
+  if(winner === symbols[0]) {
     status = 1; // Player won
-  } else if(winner === 'O') {
+  } else if(winner === symbols[1]) {
     status = -1; //AI won
   } else {
     status = 0; //Draw
@@ -71,9 +74,11 @@ function printToGameLog(text) {
  * New game
  */
 function startNewGame() {
+  var player1 = symbols[0];
+  var player2 = symbols[1];
   score = {
-    'X': 0,
-    'O': 0
+    player1 : 0,
+    player2 : 0
   };
   boxes.forEach(function (cell) {
     cell.innerHTML = EMPTY;
@@ -81,7 +86,7 @@ function startNewGame() {
   availableBoxes = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   currentGameMoves = [];
   moves = 0;
-  turn = 'X';
+  turn = symbols[0];
   isOver = false;
   printToGameLog('New game started!');
 }
@@ -158,7 +163,7 @@ function check_game_status(clicked) {
   turnTimer = setInterval(function(){
     if(timeSpent >= 100){
       clearInterval(turnTimer);
-      turn = turn === 'X' ? 'O' : 'X';
+      turn = turn === symbols[0] ? symbols[1] : symbols[0];
       isOver = true;
       saveGameHistory(turn); //save record
       document.getElementById('turn').textContent = 'Winner by timeout: Player ' + turn;
@@ -183,10 +188,10 @@ function check_game_status(clicked) {
     document.getElementById('turn').textContent = 'Draw';
     printToGameLog('Move ' + moves + ': Game ended in a draw!');
   } else {
-    turn = turn === 'X' ? 'O' : 'X';
+    turn = turn === symbols[0] ? symbols[1] : symbols[0];
     document.getElementById('turn').textContent = 'Player ' + turn;
     if(gameType == "vsAI") {
-      if(turn === 'O') {
+      if(turn === symbols[1]) {
         boxes.forEach(function (cell) {
           cell.removeEventListener('click', set);
         });
@@ -243,7 +248,13 @@ function easy_ai_turn() {
 function init() {
   let params = new URLSearchParams(location.search);
   gameType = params.get('gameType');
-  if (gameType != 'vsSelf' && gameType != 'vsAI') {
+  if (gameType === 'vsSelf') {
+    symbols[1] = "❤️";
+  }
+  else if (gameType === 'vsAI') {
+    symbols[1] = "🤖";
+  }
+  else if (gameType != 'vsSelf' && gameType != 'vsAI') {
     gameType = 'vsSelf'
   }
   displayCurrentUserName();
