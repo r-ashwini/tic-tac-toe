@@ -10,15 +10,14 @@
     margin: auto;
   }
 
-  #startgame_regular, 
-  #startgame_easy_ai,
+  #startgame_vs_self, 
+  #startgame_vs_ai,
   #login,
   #gethistory,
   #getranking,
   #logout
   {
     background-color: white;
-    color: #50C878;
     border: 2px solid #e7e7e7;
     padding: 15px 32px;
     text-align: center;
@@ -27,8 +26,8 @@
     font-weight: 500;
   }
   
-  #startgame_regular:hover, 
-  #startgame_easy_ai:hover,
+  #startgame_vs_self:hover, 
+  #startgame_vs_ai:hover,
   #login:hover,
   #gethistory:hover,
   #getranking:hover,

@@ -3,9 +3,14 @@
     padding: 0;
     margin: 0;
   } */
-  
+
+  .class {
+    margin: auto;
+  }
 
   .container {
+    width: 66.67%;
+    float: left;
     display: flex;
     background: #fff;
     align-content: center;
@@ -15,6 +20,24 @@
     max-height: 1000px;
     /* border-radius: 5%; */
     margin: auto;
+  }
+
+  #gamelog {
+    width: 33.33%;
+    float: left;
+    background: #fff;
+    border-style: solid;
+    width: 260px;
+    height: 615px;
+    overflow: auto;
+    padding: 10px;
+    margin: auto;
+  }
+  
+  .columns:after {
+    content: "";
+    display: table;
+    clear: both;
   }
   
   table {

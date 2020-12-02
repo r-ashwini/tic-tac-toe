@@ -20,23 +20,26 @@
 <body>
     <div class="banner" id="showDisplayName"> Hi,  </div>
     <button type="button" title="Main Menu" onclick="home()">
-      </span>&#11088
+      </span>&#127968
     </button>
-    <div class="container">
-      <div id="tictactoe" align="center">
+    <div class="columns" align:center>
+      <div class="container">
+        <div id="tictactoe">
+        </div>
+        <div id="player">
+          <span id="turn">Player X</span>
+          <br>
+          <br>
+          <button id="startNewGame" type="button">Start a New Game</button>
+          <br>
+          <br>
+          <label for="progressBar">Turn Timer:</label>
+          <progress id="progressBar" value="100" max="100"></progress>
+        </div>
       </div>
-      <div id="player" align="center">
-        <span id="turn" align="">Player X</span>
-        <br>
-        <br>
-        <button id="startNewGame" type="button">Start a New Game</button>
-        <br>
-        <br>
-        <label for="progressBar">Turn Timer:</label>
-        <progress id="progressBar" value="100" max="100"></progress>
+      <div id="gamelog">
       </div>
     </div>
-    
 
     <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-database.js"></script>
