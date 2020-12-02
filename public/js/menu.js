@@ -20,7 +20,7 @@ function init() {
 }
 
 function playvsSelf() {
-    window.location.href = "game.html?gameType=vsSelf";
+    window.location.href = "customxo.html?gameType=vsSelf";
 }
 
 function playvsAI() {
