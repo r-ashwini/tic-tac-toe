@@ -16,11 +16,10 @@ var N_SIZE = 3,
   currentGameMoves = [],
   gameType,
   turn = symbols[0],
-  score,
+  score = [0, 0],
   turnTimer,
   moves,
   isOver;
-
 
 /**
  * Initializes the Tic Tac Toe board and starts the game.
@@ -38,18 +37,20 @@ function displayCurrentUserName () {
 }
 
 function saveGameHistory(winner) {
+  let status = 0;
+  if(winner === symbols[0]) {
+    score[0]++;
+    status = 1; // Player won
+  } else if(winner === symbols[1]) {
+    score[1]++;
+    status = -1; //Opponent won
+  } else {
+    status = 0; //Draw
+  }
   const currentUser = firebase.auth().currentUser;
   if(currentUser === null) return;
   const newGameId = uuidv4();
   const data = Date.now(); //raw timestamp
-  let status = 0;
-  if(winner === symbols[0]) {
-    status = 1; // Player won
-  } else if(winner === symbols[1]) {
-    status = -1; //AI won
-  } else {
-    status = 0; //Draw
-  }
   firebase.database().ref('/games/' + newGameId).set({
     userId: currentUser.uid,
     userName: currentUser.displayName,
@@ -74,12 +75,6 @@ function printToGameLog(text) {
  * New game
  */
 function startNewGame() {
-  var player1 = symbols[0];
-  var player2 = symbols[1];
-  score = {
-    player1 : 0,
-    player2 : 0
-  };
   boxes.forEach(function (cell) {
     cell.innerHTML = EMPTY;
   });
@@ -89,6 +84,8 @@ function startNewGame() {
   turn = symbols[0];
   isOver = false;
   printToGameLog('New game started!');
+  printToGameLog('Player ' + symbols[0] + " score: " + score[0]);
+  printToGameLog('Player ' + symbols[1] + " score: " + score[1]);
 }
 
 function onStartNewGameClicked() {
@@ -97,6 +94,7 @@ function onStartNewGameClicked() {
 }
 
 function createGame() {
+  document.getElementById("game_box").style.display = "block";
   var board = document.createElement('table');
   board.setAttribute('border', 1);
   board.setAttribute('cellspacing', 0);
@@ -163,11 +161,11 @@ function check_game_status(clicked) {
   turnTimer = setInterval(function(){
     if(timeSpent >= 100){
       clearInterval(turnTimer);
-      turn = turn === symbols[0] ? symbols[1] : symbols[0];
       isOver = true;
       saveGameHistory(turn); //save record
       document.getElementById('turn').textContent = 'Winner by timeout: Player ' + turn;
       printToGameLog('Move ' + moves + ': Player ' + turn + ' won!');
+      printToGameLog('--------------------------');
     }
     document.getElementById('progressBar').value = 100 - timeSpent;
     timeSpent += 5;
@@ -180,6 +178,7 @@ function check_game_status(clicked) {
     saveGameHistory(turn); //save record
     document.getElementById('turn').textContent = 'Winner: Player ' + turn;
     printToGameLog('Move ' + moves + ': Player ' + turn + ' won!');
+    printToGameLog('--------------------------');
   // if all cells are occupied -> game draw
   } else if (moves === N_SIZE * N_SIZE) {
     clearInterval(turnTimer);
@@ -187,6 +186,7 @@ function check_game_status(clicked) {
     saveGameHistory("Draw");
     document.getElementById('turn').textContent = 'Draw';
     printToGameLog('Move ' + moves + ': Game ended in a draw!');
+    printToGameLog('--------------------------');
   } else {
     turn = turn === symbols[0] ? symbols[1] : symbols[0];
     document.getElementById('turn').textContent = 'Player ' + turn;
@@ -213,7 +213,6 @@ function ai_set(selected_cell) {
   moves++;
   printToGameLog('Move ' + moves + ': Player ' + turn + ' selected cell ' + selected_cell);
   boxes[selected_cell].innerHTML = turn;
-  score[turn] += selected_cell;
   currentGameMoves.push(selected_cell);
   const index = availableBoxes.indexOf(selected_cell);
   availableBoxes.splice(index, 1);
@@ -231,7 +230,6 @@ function set() {
   moves++;
   printToGameLog('Move ' + moves + ': Player ' + turn + ' selected cell ' + this.identifier);
   this.innerHTML = turn;
-  score[turn] += this.identifier;
   currentGameMoves.push(this.identifier);
   const index = availableBoxes.indexOf(this.identifier);
   availableBoxes.splice(index, 1);
@@ -243,6 +241,36 @@ function easy_ai_turn() {
   var random_select = Math.floor(Math.random() * availableBoxes.length);
   ai_set(availableBoxes[random_select]);
   //document.getElementById('turn').textContent = 'Done';
+}
+
+function select_symbol() {
+  symbols[0] = this.innerHTML;
+  var player1 = symbols[0];
+  var player2 = symbols[1];
+  document.getElementById("symbol_modal").style.display = "none";
+  createGame();
+}
+
+function symbol_picker() {
+  var symbol_list = document.createElement('table');
+  var row = document.createElement('tr');
+  symbol_list.setAttribute('border', 1);
+  symbol_list.setAttribute('cellspacing', 0);
+  symbol_list.appendChild(row);
+  var symbol_options = ["👍", "👑", "😊", "🔫", "🤠"];
+
+  for (var i = 0; i < 5; i++) {
+    var symbol_cell = document.createElement('td');
+    symbol_cell.setAttribute('height', 50);
+    symbol_cell.setAttribute('width', 50);
+    symbol_cell.setAttribute('align', 'center');
+    symbol_cell.setAttribute('valign', 'center');
+    symbol_cell.identifier = i;
+    symbol_cell.innerHTML = symbol_options[i];
+    symbol_cell.addEventListener('click', select_symbol);
+    row.appendChild(symbol_cell);
+  }
+  document.getElementById('modal_content').appendChild(symbol_list);
 }
 
 function init() {
@@ -258,7 +286,7 @@ function init() {
     gameType = 'vsSelf'
   }
   displayCurrentUserName();
-  createGame();
+  symbol_picker();
 }
 
 init();

@@ -4,7 +4,24 @@
     margin: 0;
   } */
 
-  .class {
+   /* The Modal (background) */
+  .modal {
+    display: block; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    background-color: rgb(43, 157, 77);
+  }
+
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+  }
+
+  .columns {
+    display: none; /* Hidden by default */
     margin: auto;
   }
 
@@ -27,7 +44,7 @@
     float: left;
     background: #fff;
     border-style: solid;
-    width: 260px;
+    width: 270px;
     height: 615px;
     overflow: auto;
     padding: 10px;
