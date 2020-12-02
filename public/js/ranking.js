@@ -15,7 +15,7 @@ function init() {
             currentUserDisplayName = userDisplayName;
             displayCurrentUserName(userDisplayName);
             const gameRef = firebase.database().ref('games');
-            const query = gameRef.orderByChild('gameType').startAt('AI').endAt('AI\uf8ff')
+            const query = gameRef.orderByChild('gameType').equalTo('vsAI');
             let data = {};
             query.on("value", function(snapshot) {  
                 for (var key in snapshot.val()) {
@@ -23,7 +23,7 @@ function init() {
                     const userId = item["userId"];
                     const userName = item["userName"];
                     const gameType = item["gameType"];
-                    let isEasy = gameType === 'AI (Easy)'? true : false;
+                    let isEasy = gameType === 'vsAI'? true : false;
                     const status = item["status"];
                     let userData;
                     if (userId in data) {
