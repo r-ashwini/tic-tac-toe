@@ -18,7 +18,7 @@ function init() {
                     const timestamp = item.timestamp;
                     const humanReadableTime = convertTimeToHumanReadable(timestamp);
                     let status = item["status"];
-                    if(item["gameType"] !== 'Regular') {
+                    if(item["gameType"] !== 'vsSelf') {
                         if(status === 1) {
                             status = "Player Won"; // Player won
                           } else if(status === -1) {
@@ -26,6 +26,8 @@ function init() {
                           } else {
                             status = "Draw"; //Draw
                           }
+                    } else {
+                        status = "-";
                     }
                     let newItem = {
                         date: humanReadableTime,
@@ -36,12 +38,15 @@ function init() {
                     };
                     data = [newItem, ...data];
                 }
+                data.sort(function(a,b){
+                    return new Date(b.timestamp) - new Date(a.timestamp);
+                });
                 $('#game-history-pagination').pagination({
                     dataSource: {
                         data: data
                     },
                     locator: "data",
-                    pageSize: 30,
+                    pageSize: 10,
                     callback: function(data, pagination) {
                         var html = template(data);
                         $('#game-history-data').html(html);
@@ -60,9 +65,6 @@ function init() {
 }
 
 function template(dataSet) {
-    dataSet.sort(function(a,b){
-        return new Date(b.timestamp) - new Date(a.timestamp);
-    });
     let divItem = "";
     const header = {
         date: "Date",
