@@ -6,14 +6,12 @@
     flex-direction: column;
     max-width: 500px;
     max-height: 500px;
-    background-image: url('images/bgnew.jpg');
     /* border-radius: 5%; */
     margin: auto;
   }
-
+  
   #signinButton {
     background-color: white;
-    color: #50C878;
     border: 2px solid #e7e7e7;
     padding: 15px 32px;
     text-align: center;

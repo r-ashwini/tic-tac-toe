@@ -3,36 +3,31 @@
  *
  * A Tic Tac Toe game in HTML/JavaScript/CSS.
  *
- * No dependencies - Uses Vanilla JS
+ * Adapted from a Tic Tac Toe game by Vasanth Krishnamoorthy
  *
- * @author: Vasanth Krishnamoorthy
+ * @author: Neil Cai, Purrnima Dayanandam, Liwen Fan, Monali Khobragade, Ashwini Rudrawar, Will Thomas, Kevin Wang
  */
 var N_SIZE = 3,
   EMPTY = '&nbsp;',
   boxes = [],
   availableBoxes = [],
   currentGameMoves = [],
+  gameType,
   turn = 'X',
   score,
   turnTimer,
-  moves;
+  moves,
+  isOver;
 
-let isOver = false;
 /**
  * Initializes the Tic Tac Toe board and starts the game.
  */
-
-function init() {
-  displayCurrentUserName();
-  createGame();
-}
 
 function displayCurrentUserName () {
   /* Get user display name for banner */
   firebase.auth().onAuthStateChanged(function(user) {
     let currentUserDisplayName = "Guest";
-    currentUserDisplayName = user? 
-        user.displayName : currentUserDisplayName;
+    currentUserDisplayName = user ? user.displayName : currentUserDisplayName;
     const item = document.getElementById("showDisplayName");
     const text = document.createTextNode(currentUserDisplayName);
     item.appendChild(text); 
@@ -44,13 +39,6 @@ function saveGameHistory(winner) {
   if(currentUser === null) return;
   const newGameId = uuidv4();
   const data = Date.now(); //raw timestamp
-  // firebase.database().ref('/games/' + newGameId).set({
-  //   userId: currentUser.uid,
-  //   gameType: "Regular", //play against self
-  //   winner: winner,
-  //   timestamp: data,
-  //   status: "win" //user always win for this mode
-  // });
   let status = 0;
   if(winner === 'X') {
     status = 1; // Player won
@@ -62,7 +50,7 @@ function saveGameHistory(winner) {
   firebase.database().ref('/games/' + newGameId).set({
     userId: currentUser.uid,
     userName: currentUser.displayName,
-    gameType: "AI (Easy)", //play against Easy AI
+    gameType: gameType, //play against Easy AI
     winner: winner,
     timestamp: data,
     status: status
@@ -71,6 +59,36 @@ function saveGameHistory(winner) {
 
 function home() {
   window.location.href = "menu.html";
+}
+
+function printToGameLog(text) {
+  var gameLog = document.getElementById('gamelog');
+  document.getElementById('gamelog').innerHTML += text + '<br />';
+  gameLog.scrollTop = gameLog.scrollHeight;
+}
+
+/**
+ * New game
+ */
+function startNewGame() {
+  score = {
+    'X': 0,
+    'O': 0
+  };
+  boxes.forEach(function (cell) {
+    cell.innerHTML = EMPTY;
+  });
+  availableBoxes = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+  currentGameMoves = [];
+  moves = 0;
+  turn = 'X';
+  isOver = false;
+  printToGameLog('New game started!');
+}
+
+function onStartNewGameClicked() {
+  startNewGame();
+  document.getElementById('turn').textContent = 'Player ' + turn;
 }
 
 function createGame() {
@@ -102,28 +120,10 @@ function createGame() {
       identifier++;
     }
   }
-
   document.getElementById('tictactoe').appendChild(board);
   document.getElementById('startNewGame').disabled = false;
   document.getElementById("startNewGame").onclick = function() {onStartNewGameClicked()};
   startNewGame();
-}
-
-/**
- * New game
- */
-function startNewGame() {
-  score = {
-    'X': 0,
-    'O': 0
-  };
-  availableBoxes = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-  currentGameMoves = [];
-  moves = 0;
-  turn = 'X';
-  boxes.forEach(function (square) {
-    square.innerHTML = EMPTY;
-  });
 }
 
 /**
@@ -162,54 +162,70 @@ function check_game_status(clicked) {
       isOver = true;
       saveGameHistory(turn); //save record
       document.getElementById('turn').textContent = 'Winner by timeout: Player ' + turn;
+      printToGameLog('Move ' + moves + ': Player ' + turn + ' won!');
     }
     document.getElementById('progressBar').value = 100 - timeSpent;
     timeSpent += 5;
   }, 500);
+  // if a player has won
   if (win(clicked)) {
     //alert('Winner: Player ' + turn);
     clearInterval(turnTimer);
     isOver = true;
     saveGameHistory(turn); //save record
     document.getElementById('turn').textContent = 'Winner: Player ' + turn;
+    printToGameLog('Move ' + moves + ': Player ' + turn + ' won!');
+  // if all cells are occupied -> game draw
   } else if (moves === N_SIZE * N_SIZE) {
     clearInterval(turnTimer);
     isOver = true;
     saveGameHistory("Draw");
     document.getElementById('turn').textContent = 'Draw';
+    printToGameLog('Move ' + moves + ': Game ended in a draw!');
   } else {
     turn = turn === 'X' ? 'O' : 'X';
     document.getElementById('turn').textContent = 'Player ' + turn;
-    if(turn === 'O') {
-      setTimeout(easy_ai_turn, 3000);
+    if(gameType == "vsAI") {
+      if(turn === 'O') {
+        boxes.forEach(function (cell) {
+          cell.removeEventListener('click', set);
+        });
+        setTimeout(easy_ai_turn, 3000);
+      } else {
+        boxes.forEach(function (cell) {
+          cell.addEventListener('click', set);
+        });
+      }
     }
   }
 }
 
-function ai_set(selected_square) {
-  clearInterval(turnTimer);
-  if (boxes[selected_square].innerHTML !== EMPTY || isOver) {
+function ai_set(selected_cell) {
+  if (boxes[selected_cell].innerHTML !== EMPTY || isOver) {
     return;
   }
-  boxes[selected_square].innerHTML = turn;
-  moves += 1;
-  score[turn] += selected_square;
-  currentGameMoves.push(selected_square);
-  const index = availableBoxes.indexOf(selected_square);
+  clearInterval(turnTimer);
+  moves++;
+  printToGameLog('Move ' + moves + ': Player ' + turn + ' selected cell ' + selected_cell);
+  boxes[selected_cell].innerHTML = turn;
+  score[turn] += selected_cell;
+  currentGameMoves.push(selected_cell);
+  const index = availableBoxes.indexOf(selected_cell);
   availableBoxes.splice(index, 1);
-  check_game_status(boxes[selected_square]);
+  check_game_status(boxes[selected_cell]);
 }
 
 /**
- * Sets clicked square and also updates the turn.
+ * Sets clicked cell and also updates the turn.
  */
 function set() {
-  clearInterval(turnTimer);
   if (this.innerHTML !== EMPTY || isOver) {
     return;
   }
+  clearInterval(turnTimer);
+  moves++;
+  printToGameLog('Move ' + moves + ': Player ' + turn + ' selected cell ' + this.identifier);
   this.innerHTML = turn;
-  moves += 1;
   score[turn] += this.identifier;
   currentGameMoves.push(this.identifier);
   const index = availableBoxes.indexOf(this.identifier);
@@ -220,16 +236,18 @@ function set() {
 function easy_ai_turn() {
   //document.getElementById('turn').textContent = 'In AI Turn';
   var random_select = Math.floor(Math.random() * availableBoxes.length);
-  document.getElementById('turn').textContent = 'Available length: ' + availableBoxes.length + ', Index: ' + random_select + ", Value at index: " + availableBoxes[random_select];
   ai_set(availableBoxes[random_select]);
-  turn = 'X';
   //document.getElementById('turn').textContent = 'Done';
 }
 
-function onStartNewGameClicked() {
-  isOver = false;
-  startNewGame();
-  document.getElementById('turn').textContent = 'Player ' + turn;
+function init() {
+  let params = new URLSearchParams(location.search);
+  gameType = params.get('gameType');
+  if (gameType != 'vsSelf' && gameType != 'vsAI') {
+    gameType = 'vsSelf'
+  }
+  displayCurrentUserName();
+  createGame();
 }
 
 init();

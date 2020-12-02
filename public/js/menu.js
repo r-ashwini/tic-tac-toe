@@ -19,12 +19,12 @@ function init() {
     });
 }
 
-function playEasyAI() {
-    window.location.href = "game.html";
+function playvsSelf() {
+    window.location.href = "game.html?gameType=vsSelf";
 }
 
-function playRegular() {
-    window.location.href = "gameRegular.html";
+function playvsAI() {
+    window.location.href = "game.html?gameType=vsAI";
 }
 
 function login() {
